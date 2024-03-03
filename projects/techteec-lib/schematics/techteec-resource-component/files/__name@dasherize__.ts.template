@@ -1,0 +1,14 @@
+export interface <%= classify(name) %>ListViewModel {
+    id: number;
+    name: string;
+}
+export interface <%= classify(name) %>ViewModel {
+    id: number;
+    name: string;
+    extraProperty: string;
+}
+export interface <%= classify(name) %>BindingModel {
+    id: number;
+    name: string;
+    extraProperty: string;
+}

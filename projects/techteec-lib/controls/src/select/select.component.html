@@ -1,0 +1,23 @@
+<div [ngClass]="size" class="main-container">
+<mat-form-field [ngStyle]="{'width': fullWidth ? '100%' : ''}" [color]="matColor" [appearance]="appearance">
+    <mat-label *ngIf="label">
+      {{label}}
+    </mat-label>
+    <mat-icon *ngIf="prefixIcon" matPrefix>
+        {{prefixIcon}}
+    </mat-icon>
+    <mat-select [formControl]="formControl" [placeholder]="placeHolder" (valueChange)="onValueChange($event)" [multiple]="isMulty">
+      <mat-option value="" *ngIf="haveNull" [ngClass]="size"></mat-option>
+      <mat-option *ngFor="let option of options" [value]="valueAccessor ? option[valueAccessor] : option" [ngClass]="size">
+        {{displayAccessor ? option[displayAccessor] : option}}
+      </mat-option>
+    </mat-select>
+    <div matSuffix>
+        <mat-icon  matSuffix color="primary" *ngIf="!formControl.pending && formControl.touched && isAsync && formControl.valid">check</mat-icon>
+        <mat-spinner  matSuffix color="primary" *ngIf="(isAsync && formControl.pending)  || isLoading"></mat-spinner>
+    </div>
+    <mat-error *ngIf="!formControl.pending && formControl.touched && formControl.invalid">
+      {{getErrors()}}
+    </mat-error>
+  </mat-form-field>
+</div>

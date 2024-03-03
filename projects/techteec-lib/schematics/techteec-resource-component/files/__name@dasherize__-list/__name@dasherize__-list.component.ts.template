@@ -1,0 +1,76 @@
+import { Component, inject } from '@angular/core';
+import { <%= classify(name) %>Service } from '../<%= dasherize(name) %>.service';
+import { btns, columns, filters } from '../<%= dasherize(name) %>.const';
+import { <%= classify(name) %>ListViewModel } from '../<%= dasherize(name) %>';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { DataTableComponent } from 'techteec-lib/components/data-table';
+import { DataTableFilter, GeneralFilterModel } from 'techteec-lib/components/data-table/src/data-table.model';
+import { Unsubscriber } from 'techteec-lib/common';
+import { CommonModule } from '@angular/common';
+import { filter, of, switchMap } from 'rxjs';
+import { MatDialog }  from '@angular/material/dialog';
+import { <%= classify(name) %>FormComponent } from '../<%= dasherize(name) %>-form/<%= dasherize(name) %>-form.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
+@Component({
+  selector: 'amr-<%= dasherize(name) %>-list',
+  standalone: true,
+  imports: [CommonModule, MatGridListModule, DataTableComponent, MatProgressSpinnerModule],
+  templateUrl: './<%= camelize(name) %>-list.component.html',
+  styleUrl: './<%= camelize(name) %>-list.component.scss'
+})
+export class <%= classify(name) %>ListComponent extends Unsubscriber {
+  private <%= camelize(name) %>Service = inject(<%= classify(name) %>Service);
+  loadingList$ = this.<%= camelize(name) %>Service.loadingList$;
+  loadingElement$ = this.<%= camelize(name) %>Service.loadingElement$;
+  columns = columns;
+  filters = filters;
+  btns = btns;
+  data: <%= classify(name) %>ListViewModel[] = [];
+  dataSize = 0;
+  latestFilter!: GeneralFilterModel;
+  private dialog = inject(MatDialog);
+  ///add other properties
+
+  ///////////////////////
+  constructor() {
+    super();
+    const dynamicFilters: DataTableFilter[] = [
+      {
+        Type: 'select',
+        ControlName: 'extraField',
+        Label: 'Extra Field',
+        PlaceHolder: 'Extra Field',
+        Data$: of([
+          {name: 'a', value: '1'},
+          {name: 'b', value: '2'},
+          {name: 'c', value: '3'}
+        ]),
+        DisplayProperty: 'name',
+        ValueProperty: 'value'
+      }
+    ];
+    this.filters.push(...dynamicFilters)
+  }
+  changed(filter: GeneralFilterModel) {
+    this._otherSubscription = this.<%= camelize(name) %>Service.getByFilter(filter).subscribe(x => {
+      this.data = x.<%= dataWithSizeData %>;
+      this.dataSize = x.<%= dataWithSizeSize %>;
+    })
+  }
+  btnClicked(btnIndex: number) {
+    if(btnIndex == 0) {
+      this._otherSubscription = this.dialog.open(<%= classify(name) %>FormComponent, {panelClass: 'techteec-form-dialog'}).afterClosed().pipe(
+        filter(bindingObject => bindingObject),
+        switchMap(bindingObject => this.<%= camelize(name) %>Service.addElement(bindingObject))
+      ).subscribe(viewObject => this.changed(this.latestFilter))
+    }
+  }
+  rowClicked(element: <%= classify(name) %>ListViewModel) {
+    this._otherSubscription = this.<%= camelize(name) %>Service.getById(element.id).pipe(
+      switchMap(viewObject => this.dialog.open(<%= classify(name) %>FormComponent, {panelClass: 'techteec-form-dialog', data: viewObject}).afterClosed()),
+      filter(bindingObject => bindingObject),
+      switchMap(bindingObject => this.<%= camelize(name) %>Service.editElement(bindingObject))
+    ).subscribe(viewObject => this.changed(this.latestFilter))
+  }
+}

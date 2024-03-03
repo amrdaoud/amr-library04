@@ -1,0 +1,44 @@
+.techteec-confirm-dialog .mat-mdc-dialog-container {
+  padding: 0px;
+  min-width: 200px;
+}
+.techteec-confirm-dialog .mat-mdc-dialog-container .mat-mdc-card-title {
+  font-size: 16px;
+  letter-spacing: 0.5;
+  font-weight: 600;
+}
+.techteec-confirm-dialog .mat-mdc-dialog-container .mat-mdc-card-content {
+  font-size: 14px;
+  letter-spacing: 0.5;
+  font-weight: 500;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+.techteec-confirm-dialog .mat-mdc-dialog-container .mat-mdc-card-actions {
+  gap: 10px;
+}
+.techteec-confirm-dialog .mat-mdc-dialog-container .mat-mdc-card-actions button {
+  min-width: 120px;
+}
+
+.overall-spinner-container {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  bottom: 0;
+  z-index: 101;
+}
+
+.techteec-snack-error {
+  white-space: pre-wrap;
+}
+.techteec-snack-error .mat-mdc-button {
+  color: #D32F2F !important;
+}
+
+/*# sourceMappingURL=styles.css.map */

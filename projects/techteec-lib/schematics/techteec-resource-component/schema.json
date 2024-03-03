@@ -1,0 +1,80 @@
+{
+    "$schema": "http://json-schema.org/schema",
+    "$id":"tecteec-resource-component",
+    "title":"Techteec Resource Component Schema",
+    "type": "object",
+    "properties": {
+        "name": {
+            "description": "the name of the component and it will be the prefix of its properties",
+            "type": "string",
+            "x-prompt": "Please type the resource name"
+        },
+        "folderName": {
+            "description": "the name of the container folder",
+            "type": "string",
+            "x-prompt": "What is the container folder name? (keep it blank to use resource name)"
+        },
+        "path": {
+            "Description": "Where the component should be created",
+            "type": "string",
+            "format": "path",
+            "x-prompt": "Where should we place the component?",
+            "default": "src/app"
+        },
+        "dataWithSizeData": {
+            "description": "Data with size object keys (data):",
+            "type": "string",
+            "x-prompt": "Data with size (data) object keys (default: data):",
+            "default": "data"
+        },
+        "dataWithSizeSize": {
+            "description": "Data with size object keys (size):",
+            "type": "string",
+            "x-prompt": "Data with size (size) object keys (default: dataSize):",
+            "default": "dataSize"
+        },
+        "apiUrlSuffix": {
+            "Description": "What is your resource api url suffix",
+            "type": "string",
+            "format": "path",
+            "x-prompt": "What is your resource api url suffix? (keep it blank to use resource name)"
+        },
+        "apiGetByFilterMethodSuffix": {
+            "Description": "What is your get by filter api method suffix",
+            "type": "string",
+            "format": "path",
+            "x-prompt": "What is your get by filter api method suffix? (keep it blank to use '')"
+        },
+        "apiGetByIdMethodSuffix": {
+            "Description": "What is your get by id api method suffix",
+            "type": "string",
+            "format": "path",
+            "x-prompt": "What is your get by id api method suffix? (keep it blank to use '')"
+        },
+        "apiAddMethodSuffix": {
+            "Description": "What is your add api method suffix",
+            "type": "string",
+            "format": "path",
+            "x-prompt": "What is your add api method suffix? (keep it blank to use '')"
+        },
+        "apiEditMethodSuffix": {
+            "Description": "What is your edit api method suffix",
+            "type": "string",
+            "format": "path",
+            "x-prompt": "What is your edit api method suffix? (keep it blank to use '')"
+        },
+        "apiDeleteMethodSuffix": {
+            "Description": "What is your delete api method suffix",
+            "type": "string",
+            "format": "path",
+            "x-prompt": "What is your delete api method suffix? (keep it blank to use '')"
+        },
+        "apiDownloadByFilterMethodSuffix": {
+            "Description": "What is your download by filter api method suffix",
+            "type": "string",
+            "format": "path",
+            "x-prompt": "What is your download by filter api method suffix? (keep it blank to use 'export')"
+        }
+    },
+    "required": ["name", "path"]
+}

@@ -2,6 +2,18 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "paths": {
+      "a-library": [
+        "./dist/a-library"
+      ],
+      "amr-library": [
+        "./dist/amr-library"
+      ],
+      "techteec-lib": [
+        "./dist/techteec-lib",
+        "./dist/techteec-lib"
+      ]
+    },
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "strict": true,

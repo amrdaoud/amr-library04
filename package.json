@@ -7,27 +7,37 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "build-library": "ng build techteec-lib",
+    "pack-library": "npm pack techteec-lib --pack-destination C:/Users/Amr.F.Daoud/Desktop/AngularReusable/packages",
+    "publish-library": "npm publish techteec-lib",
+    "build-pack-library": "ng build techteec-lib && npm pack techteec-lib --pack-destination C:/Users/Amr.F.Daoud/Desktop/AngularReusable/packages",
+    "build-publish-library": "ng build techteec-lib && npm publish techteec-lib",
     "serve:ssr:amr-library04": "node dist/amr-library04/server/server.mjs"
   },
   "private": true,
   "dependencies": {
     "@angular/animations": "^17.0.0",
+    "@angular/cdk": "^17.0.1",
     "@angular/common": "^17.0.0",
     "@angular/compiler": "^17.0.0",
     "@angular/core": "^17.0.0",
     "@angular/forms": "^17.0.0",
+    "@angular/material": "^17.0.1",
     "@angular/platform-browser": "^17.0.0",
     "@angular/platform-browser-dynamic": "^17.0.0",
     "@angular/platform-server": "^17.0.0",
     "@angular/router": "^17.0.0",
     "@angular/ssr": "^17.0.3",
+    "copyfiles": "^2.4.1",
     "express": "^4.18.2",
     "rxjs": "~7.8.0",
+    "techteec-lib": "file:../../packages/techteec-lib-0.0.11.tgz",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^17.0.3",
+    "@angular-devkit/schematics": "^17.0.6",
     "@angular/cli": "^17.0.3",
     "@angular/compiler-cli": "^17.0.0",
     "@types/express": "^4.17.17",
@@ -39,6 +49,7 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "ng-packagr": "^17.0.0",
     "typescript": "~5.2.2"
   }
 }

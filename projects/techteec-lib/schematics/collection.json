@@ -1,0 +1,15 @@
+{
+    "$schema": "../../../node_modules/@angular-devkit/schematics/collection-schema.json",
+    "schematics": {
+        "ng-add": {
+            "description": "Adding the brilliant techteec-lib",
+            "factory": "./ng-add/index#ngAdd"
+        },
+        "techteec-resource-component": {
+            "description": "Generating a techteec-lib resource component",
+            "factory": "./techteec-resource-component/index#techteecResourceComponent",
+            "schema": "./techteec-resource-component/schema.json",
+            "aliases": ["trc"]
+        }
+    }
+}

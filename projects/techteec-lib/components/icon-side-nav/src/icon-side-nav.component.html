@@ -1,0 +1,151 @@
+<mat-drawer-container class="icon-side-nav" [ngClass]="isDark ? 'dark-nav' : 'light-nav'">
+    <mat-drawer [opened]="true" #iconDrawer class="icon-drawer" [mode]="'side'" [ngClass]="textDrawer.opened ? 'text-opened' : ''">
+        <div class="drawer-content">
+            <ng-container *ngIf="logoSrc || brand">
+                <div class="logo-container">
+                    <img *ngIf="logoSrc" [src]="logoSrc">
+                </div>
+                <mat-divider></mat-divider>
+            </ng-container>
+            <ng-container *ngFor="let item of topItems">
+                <ng-container [ngTemplateOutlet]="item.children && item.children.length > 0 ? iconWithChild : iconNoChild" [ngTemplateOutletContext]="{item:item}">
+                </ng-container>
+            </ng-container>
+            <span class="full-spacer"></span>
+            <ng-container *ngFor="let item of middleItems">
+                <ng-container [ngTemplateOutlet]="item.children && item.children.length > 0 ? iconWithChild : iconNoChild" [ngTemplateOutletContext]="{item:item}">
+                </ng-container>
+            </ng-container>
+            <span class="full-spacer"></span>
+            <ng-container *ngFor="let item of bottomItems">
+                <ng-container [ngTemplateOutlet]="item.children && item.children.length > 0 ? iconWithChild : iconNoChild" [ngTemplateOutletContext]="{item:item}">
+                </ng-container>
+            </ng-container>
+        </div>
+    </mat-drawer>
+    <mat-drawer-content>
+        <mat-drawer-container style="height:100%;">
+            <mat-drawer #textDrawer [mode]="(isHandset$ | async) ? 'over' : 'side'" class="text-drawer">
+                <div class="drawer-content">
+                    <ng-container *ngIf="logoSrc || brand">
+                        <div  class="logo-container brand">
+                            <ng-container *ngIf="brand">
+                                {{brand}}
+                            </ng-container>
+                        </div>
+                        <mat-divider></mat-divider>
+                    </ng-container>
+                    
+                    <ng-container *ngFor="let item of topItems">
+                        <ng-container [ngTemplateOutlet]="item.children && item.children.length > 0 ? textWithChild : textNoChild" [ngTemplateOutletContext]="{item:item}">
+                        </ng-container>
+                    </ng-container>
+                    <span class="full-spacer"></span>
+                    <ng-container *ngFor="let item of middleItems">
+                        <ng-container [ngTemplateOutlet]="item.children && item.children.length > 0 ? textWithChild : textNoChild" [ngTemplateOutletContext]="{item:item}">
+                        </ng-container>
+                    </ng-container>
+                    <span class="full-spacer"></span>
+                    <ng-container *ngFor="let item of bottomItems">
+                        <ng-container [ngTemplateOutlet]="item.children && item.children.length > 0 ? textWithChild : textNoChild" [ngTemplateOutletContext]="{item:item}">
+                        </ng-container>
+                    </ng-container>
+                </div>
+            </mat-drawer>
+            <mat-drawer-content #scrollableContent>
+                <mat-toolbar [class]="toolbarMode !== 'regular' ? 'sticky' : ''" [ngClass]="toolbarClasses">
+                    <ng-content select="[toolbar-start]"></ng-content>
+                    <span class="full-spacer"></span>
+                    <ng-content select="[toolbar-center]"></ng-content>
+                    <span class="full-spacer"></span>
+                    <ng-content select="[toolbar-end]"></ng-content>
+                </mat-toolbar>
+                <div [ngClass]="forceFullHeight ? 'main-page-container' : ''">
+                    <router-outlet></router-outlet>
+                </div>
+                <button class="text-drawer-toggle-button" mat-raised-button color="primary" (click)="textDrawer.toggle()">
+                    <mat-icon *ngIf="!textDrawer.opened; else closeChevron">chevron_right</mat-icon>
+                    <ng-template #closeChevron><mat-icon>chevron_left</mat-icon></ng-template>
+                </button>
+            </mat-drawer-content>
+        </mat-drawer-container>
+    </mat-drawer-content>
+</mat-drawer-container>
+
+
+
+<ng-template #iconEmpty let-item="item">
+    <div class="nav-icon" (click)="testActive = !testActive">
+    </div>
+    <mat-expansion-panel [expanded]="item.expanded" class="icon-expansion mat-elevation-z0">
+        <ng-container *ngFor="let item of item.children">
+            <ng-container [ngTemplateOutlet]="item.children && item.children.length > 0 ? iconEmpty : iconNoChild" [ngTemplateOutletContext]="{item:item, isInner: true}"></ng-container>
+        </ng-container>
+    </mat-expansion-panel>
+</ng-template>
+
+<ng-template #iconNoChild let-item="item" let-isInner="isInner" >
+    <div class="nav-icon" *ngIf="isInner" (click)="testActive = !testActive" >
+    </div>
+    <div class="nav-icon" *ngIf="!isInner" (click)="testActive = !testActive" [routerLink]="item.routerLink" routerLinkActive="active" >
+        <mat-icon *ngIf="!item.svgIcon; else svgIcon" color="#fff">{{item.matIcon}}
+        </mat-icon>
+        <ng-template #svgIcon>
+            <mat-icon [svgIcon]="item.title"></mat-icon>
+        </ng-template>
+        
+    </div>
+    
+</ng-template>
+
+<ng-template #iconWithChild let-item="item" >
+    <div class="nav-icon"  (click)="testActive = !testActive"
+    (click)="!textDrawer.opened ? textDrawer.open() : togglePanel(item); " [routerLink]="item.routerLink" routerLinkActive="active">
+    <mat-icon *ngIf="!item.svgIcon; else svgIcon" >{{item.matIcon}}</mat-icon>
+    <ng-template #svgIcon>
+        <mat-icon [svgIcon]="item.title"></mat-icon>
+    </ng-template>
+    </div>
+    <mat-expansion-panel [expanded]="item.expanded" class="icon-expansion mat-elevation-z0">
+        <ng-container *ngFor="let item of item.children">
+            <ng-container [ngTemplateOutlet]="item.children && item.children.length > 0 ? iconEmpty : iconNoChild" [ngTemplateOutletContext]="{item:item, isInner: true}"></ng-container>
+        </ng-container>
+    </mat-expansion-panel>
+</ng-template>
+
+<ng-template #textNoChild let-item="item" let-isInner="isInner">
+    <div class="nav-text" [ngClass]="isInner ? 'inner' : ''" [routerLink]="item.routerLink" routerLinkActive="active">
+        <div class="nav-text-content" 
+            (click)="togglePanel(item)">
+            <div *ngIf="isInner" class="nav-icon" >
+                <mat-icon *ngIf="!item.svgIcon; else svgIcon">{{item.matIcon}}</mat-icon>
+                <ng-template #svgIcon>
+                    <mat-icon [svgIcon]="item.title"></mat-icon>
+                </ng-template>
+            </div>
+            {{item.title}}
+        </div>
+        </div>
+</ng-template>
+
+<ng-template #textWithChild let-item="item" let-isInner="isInner">
+    <div class="nav-text" [ngClass]="isInner ? 'inner' : ''" [routerLink]="item.routerLink" routerLinkActive="active">
+        <div class="nav-text-content" 
+            (click)="togglePanel(item)">
+            <div *ngIf="isInner" class="nav-icon" >
+                <mat-icon *ngIf="!item.svgIcon; else svgIcon">{{item.matIcon}}</mat-icon>
+                <ng-template #svgIcon>
+                    <mat-icon [svgIcon]="item.title"></mat-icon>
+                </ng-template>
+            </div>
+            {{item.title}}
+            <span class="full-spacer"></span>
+            <mat-icon>arrow_drop_down</mat-icon>
+        </div>
+        </div>
+        <mat-expansion-panel [expanded]="item.expanded" class="text-expansion mat-elevation-z0">
+            <ng-container *ngFor="let item of item.children">
+                <ng-container [ngTemplateOutlet]="item.children && item.children.length > 0 ? textWithChild : textNoChild" [ngTemplateOutletContext]="{item:item, isInner:true}"></ng-container>
+            </ng-container>
+        </mat-expansion-panel>
+</ng-template>

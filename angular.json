@@ -20,6 +20,7 @@
             "outputPath": "dist/amr-library04",
             "index": "src/index.html",
             "browser": "src/main.ts",
+            "preserveSymlinks": true,
             "polyfills": [
               "zone.js"
             ],
@@ -101,6 +102,108 @@
           }
         }
       }
+    },
+    "a-library": {
+      "projectType": "library",
+      "root": "projects/a-library",
+      "sourceRoot": "projects/a-library/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/a-library/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/a-library/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/a-library/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/a-library/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        }
+      }
+    },
+    "amr-library": {
+      "projectType": "library",
+      "root": "projects/amr-library",
+      "sourceRoot": "projects/amr-library/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/amr-library/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/amr-library/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/amr-library/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/amr-library/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        }
+      }
+    },
+    "techteec-lib": {
+      "projectType": "library",
+      "root": "projects/techteec-lib",
+      "sourceRoot": "projects/techteec-lib/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/techteec-lib/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/techteec-lib/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/techteec-lib/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/techteec-lib/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        }
+      }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }

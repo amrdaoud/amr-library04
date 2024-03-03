@@ -1,0 +1,33 @@
+
+<div style="height:100%">
+        <app-data-table
+        title="Messages & Complaints"
+        subtitle="Click to show message info"
+        [data]="data"
+        [dataSize]="dataSize"
+        [columnDefs]="(columnDefs | async)!"
+        [haveSearch]="true"
+        [filters]="filters!"
+        [menuBtns]="menuButtons!"
+        [selectBtns]="selectButtons!"
+        [isAsync]="true"
+        [pageSize]="30"
+        [sortActive]="'messageDate'"
+        [sortDirection]="'desc'"
+        [isLoading]="isLoading$ | async"
+        [isDownloading]="isDownloading$ | async"
+        [menuLoadingRows]="loadingRow$ | async"
+        [clickable]="true"
+        (changed)="tableChange($event)"
+        (downloadClicked)="download($event)"
+        (menuBtnClicked)="tableMenuClicked($event)"
+        (rowClicked)="goToInfo($event)"
+        (selectBtnClicked)="selectBtnClicked($event)"
+        [showSubmit]="false"
+        [preserveQueryParams]="true"
+        [preserveSearchQuery]="true"
+        [isReport]="true"
+        [searchQueryPlaceHolder]="'Find by content or mobile'"
+        [haveDownload]="true"
+        ></app-data-table>
+    </div>

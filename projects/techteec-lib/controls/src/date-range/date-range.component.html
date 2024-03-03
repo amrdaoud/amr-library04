@@ -1,0 +1,18 @@
+<div [ngClass]="size" class="main-container">
+    <mat-form-field  [ngStyle]="{'width': fullWidth ? '100%' : ''}" [color]="matColor" [appearance]="appearance">
+        <mat-label *ngIf="label">{{label}}</mat-label>
+        <mat-icon matPrefix svgIcon="calendar-icon" style="stroke:#1b1b1b"></mat-icon>
+        <mat-date-range-input [rangePicker]="picker">
+            <input matStartDate [formControl]="fromFormControl" [placeholder]="fromPlaceHolder">
+            <input matEndDate [formControl]="toFormControl" [placeholder]="toPlaceHolder">
+        </mat-date-range-input>
+        <mat-datepicker-toggle matSuffix [for]="picker">
+            <mat-icon style="color:#1b1b1b" matDatepickerToggleIcon>arrow_drop_down</mat-icon>
+        </mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+        <mat-error *ngIf="(!fromFormControl.pending && fromFormControl.touched && fromFormControl.invalid) || (!toFormControl.pending && toFormControl.touched && toFormControl.invalid)">
+            {{getFromErrors() + (getToErrors() ? ' - ' + getToErrors() : '')}}
+        </mat-error>
+    </mat-form-field>
+   
+</div>

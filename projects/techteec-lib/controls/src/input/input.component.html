@@ -1,0 +1,52 @@
+<div [ngClass]="size" class="main-container">
+<ng-container [ngSwitch]="type">
+    <mat-form-field *ngSwitchCase="'date'" [ngStyle]="{'width': fullWidth ? '100%' : ''}" [color]="matColor" [appearance]="appearance">
+        <mat-label>{{label}}</mat-label>
+        <input matInput [matDatepicker]="picker2" [placeholder]="placeHolder" [formControl]="formControl">
+        <mat-icon matPrefix svgIcon="calendar-icon" style="stroke:#1b1b1b"></mat-icon>
+        <mat-datepicker-toggle matSuffix [for]="picker2">
+            <mat-icon style="color:#1b1b1b" matDatepickerToggleIcon>arrow_drop_down</mat-icon>
+        </mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+        <mat-error *ngIf="!formControl.pending && formControl.touched && formControl.invalid">
+            {{getErrors()}}
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field  *ngSwitchCase="'text-area'" [ngStyle]="{'width': fullWidth ? '100%' : ''}" [color]="matColor" [appearance]="appearance">
+        <mat-label *ngIf="label">
+            {{label}}
+        </mat-label>
+        <mat-icon *ngIf="prefixIcon" matPrefix>
+            {{prefixIcon}}
+        </mat-icon>
+        <textarea [rows]="lines" matInput [formControl]="formControl" [placeholder]="placeHolder" [ngClass]="resize ? '' : 'no-resize'">
+        </textarea>
+        <span matSuffix>
+            <mat-icon  matSuffix color="primary"
+                *ngIf="!formControl.pending && formControl.touched && isAsync && formControl.valid">check</mat-icon>
+            <mat-spinner  matSuffix color="primary" *ngIf="(isAsync && formControl.pending)"></mat-spinner>
+        </span>
+        <mat-error *ngIf="!formControl.pending && formControl.touched && formControl.invalid">
+            {{getErrors()}}
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field *ngSwitchDefault [ngStyle]="{'width': fullWidth ? '100%' : ''}" [color]="matColor" [appearance]="appearance">
+        <mat-label *ngIf="label">
+            {{label}}
+        </mat-label>
+        <mat-icon *ngIf="prefixIcon" matPrefix>
+            {{prefixIcon}}
+        </mat-icon>
+        <span matSuffix>
+            <mat-icon  matSuffix color="primary"
+                *ngIf="!formControl.pending && formControl.touched && isAsync && formControl.valid">check</mat-icon>
+            <mat-spinner  matSuffix color="primary" *ngIf="(isAsync && formControl.pending)"></mat-spinner>
+        </span>
+        <input matInput [type]="type" [formControl]="formControl" [placeholder]="placeHolder">
+        <mat-error *ngIf="!formControl.pending && formControl.touched && formControl.invalid">
+            {{getErrors()}}
+        </mat-error>
+    </mat-form-field>
+    
+</ng-container>
+</div>

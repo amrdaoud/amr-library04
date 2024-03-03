@@ -1,0 +1,50 @@
+<div [ngClass]="size" class="main-container">
+    <mat-form-field [ngStyle]="{'width': fullWidth ? '100%' : ''}" [color]="matColor" [appearance]="appearance">
+        <mat-label *ngIf="label">
+            {{label}}
+          </mat-label>
+          <mat-icon *ngIf="prefixIcon" matPrefix>
+              {{prefixIcon}}
+          </mat-icon>
+        <mat-select [multiple]="isMulty"
+        [innerHTML]="isMulty ? ((selectionTextArray && selectionTextArray.length > 0 ? selectionTextArray[0] : '') +
+            (selectionTextArray.length > 1 ?
+            '<small class=example-additional-selection>(+'+ (selectionTextArray.length - 1) + ' ' + (selectionTextArray.length === 2 ? 'other)' : 'others)') +'</small>' : '')) : selectionTextArray + ''"
+            hideSingleSelectionIndicator>
+            <!-- <mat-select-trigger>
+                {{selectionTextArray ? selectionTextArray[0] : ''}}
+                <span *ngIf="selectionTextArray.length > 1" class="example-additional-selection">
+                    (+{{selectionTextArray.length - 1}} {{selectionTextArray.length === 2 ? 'other' : 'others'}})
+                </span>
+            </mat-select-trigger> -->
+            <div class="amr-select-search" [ngClass]="size">
+                <mat-form-field [color]="matColor" [appearance]="appearance" style="width:80%">
+                    <div matPrefix>
+                        <mat-icon matSuffix color="primary">search</mat-icon>
+                    </div>
+                    <input matInput [formControl]="searchControl" [placeholder]="searchPlaceHolder || 'Search items'">
+                    <div matSuffix>
+                        <mat-spinner matSuffix color="accent" *ngIf="isSearching"></mat-spinner>
+                        <mat-icon matSuffix  (click)="clearSearch()" *ngIf="!isSearching && searchControl.value">close</mat-icon>
+                    </div>
+                </mat-form-field>
+            </div>
+            <div class="clear-handler">
+                <button mat-button color="warn" *ngIf="(formControl.value && (formControl.value.toString().length > 0))" (click)="clearSelection()"><mat-icon>close</mat-icon>Clear</button>
+            </div>
+            <mat-option value="" *ngIf="haveNull" [ngClass]="size"></mat-option>
+            <mat-option *ngFor="let option of options" [value]="valueAccessor ?  option[valueAccessor] : option" (click)="setSelection(option)"
+                [ngClass]="isMulty ? (this.formControl.value?.includes(valueAccessor ?  option[valueAccessor] : option) ? 'amr-select-search-checked' : 'amr-select-search-unchecked'): 'amr-select-search-single-unchecked'" [class]="size">
+                {{displayAccessor ?  option[displayAccessor] : option}}
+            </mat-option>
+            <mat-option *ngIf="!options || options.length === 0" value="" [ngClass]="size" disabled>No data found</mat-option>
+        </mat-select>
+        <div matSuffix>
+            <mat-icon  matSuffix color="primary" *ngIf="!formControl.pending && formControl.touched && isAsync && formControl.valid">check</mat-icon>
+            <!-- <mat-spinner  matSuffix color="primary" *ngIf="(isAsync && formControl.pending)  || isLoading"></mat-spinner> -->
+        </div>
+        <mat-error *ngIf="!formControl.pending && formControl.touched && formControl.invalid">
+            {{getErrors()}}
+          </mat-error>
+    </mat-form-field>
+    </div>

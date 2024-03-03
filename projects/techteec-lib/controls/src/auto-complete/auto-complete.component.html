@@ -1,0 +1,50 @@
+<div [ngClass]="size" class="main-container">
+    <mat-form-field [ngStyle]="{'width': fullWidth ? '100%' : ''}" [color]="matColor" [appearance]="appearance">
+        <mat-label *ngIf="label">{{label}}</mat-label>
+        <mat-icon *ngIf="prefixIcon" matPrefix>
+            {{prefixIcon}}
+        </mat-icon>
+        <input type="text"
+               [placeholder]="placeHolder"
+               matInput
+               [formControl]="formControl"
+               [matAutocomplete]="auto">
+        <div matSuffix>
+            <mat-icon  matSuffix color="primary" *ngIf="!formControl.pending && formControl.touched && isAsync && formControl.valid">check</mat-icon>
+            <mat-spinner  matSuffix color="primary" *ngIf="(isAsync && formControl.pending)"></mat-spinner>
+        </div>
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="valueAccessor ? null : displayFn.bind(this)">
+          <div class="overall-spinner-container" *ngIf="isLoading">
+            <mat-spinner diameter="40"></mat-spinner>
+          </div>
+          <ng-container *ngIf="optionColumns; else regularOption">
+            <mat-option class="options-as-table" [ngClass]="size" disabled>
+              <div class="option-table">
+                <div class="option-row header-row">
+                  <div class="option-column header-column" *ngFor="let col of optionColumns" [style.width]="col.Width + '%'">
+                    {{col.Text}}
+                  </div>
+                  </div>
+              </div>
+          </mat-option>
+          <mat-option class="options-as-table" [ngClass]="size" *ngFor="let option of filteredOptions$ | async" [value]="valueAccessor ? option[valueAccessor] : option" [disabled]="isLoading">
+              <div class="option-table">
+              <div class="option-row">
+              <div class="option-column" *ngFor="let col of optionColumns" [style.width]="col.Width + '%'">
+                {{option[col.Id]}}
+              </div>
+              </div>
+          </div>
+          </mat-option>
+          </ng-container>
+          <ng-template #regularOption>
+            <mat-option *ngFor="let option of filteredOptions$ | async" [value]="valueAccessor ? option[valueAccessor] : option">
+              {{option[displayAccessor]}}
+            </mat-option>
+          </ng-template>
+        </mat-autocomplete>
+        <mat-error *ngIf="!formControl.pending && formControl.touched && formControl.invalid">
+          {{getErrors()}}
+      </mat-error>
+      </mat-form-field>
+</div>
