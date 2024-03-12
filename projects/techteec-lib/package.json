@@ -1,6 +1,6 @@
 {
   "name": "techteec-lib",
-  "version": "0.5.1",
+  "version": "0.5.2n",
   "scripts": {
     "build": "tsc -p tsconfig.schematics.json",
     "postbuild": "copyfiles schematics/collection.json schematics/*/schema.json schematics/*/files/** ../../dist/techteec-lib/",
