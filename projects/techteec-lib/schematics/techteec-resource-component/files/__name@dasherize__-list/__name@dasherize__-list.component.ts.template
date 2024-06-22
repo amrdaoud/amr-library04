@@ -16,8 +16,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   selector: 'amr-<%= dasherize(name) %>-list',
   standalone: true,
   imports: [CommonModule, MatGridListModule, DataTableComponent, MatProgressSpinnerModule],
-  templateUrl: './<%= camelize(name) %>-list.component.html',
-  styleUrl: './<%= camelize(name) %>-list.component.scss'
+  templateUrl: './<%= dasherize(name) %>-list.component.html',
+  styleUrl: './<%= dasherize(name) %>-list.component.scss'
 })
 export class <%= classify(name) %>ListComponent extends Unsubscriber {
   private <%= camelize(name) %>Service = inject(<%= classify(name) %>Service);

@@ -200,7 +200,7 @@ export class DataTableComponent extends Unsubscriber implements OnInit, AfterVie
         frm.addControl(element.ControlName2!, new FormControl('', { updateOn: element.UpdateOn , validators: element.IsMandatory ? Validators.required : []}));
       }
       else {
-        frm.addControl(element.ControlName, new FormControl('', { updateOn: element.UpdateOn , validators: element.IsMandatory ? Validators.required : []}));
+        frm.addControl(element.ControlName, new FormControl(null, { updateOn: element.UpdateOn , validators: element.IsMandatory ? Validators.required : []}));
       }
     });
     return frm;
