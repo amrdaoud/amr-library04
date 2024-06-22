@@ -116,7 +116,7 @@
 <ng-template #textNoChild let-item="item" let-isInner="isInner">
     <div class="nav-text" [ngClass]="isInner ? 'inner' : ''" [routerLink]="item.routerLink" routerLinkActive="active">
         <div class="nav-text-content" 
-            (click)="textDrawer.close(); togglePanel(item)">
+            (click)="togglePanel(item)">
             <div *ngIf="isInner" class="nav-icon" >
                 <mat-icon *ngIf="!item.svgIcon; else svgIcon">{{item.matIcon}}</mat-icon>
                 <ng-template #svgIcon>
